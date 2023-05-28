@@ -29,6 +29,7 @@ app.post("/getCapabilities", async (req, res) => {
 					"Access-Control-Allow-Headers",
 					"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
 				);
+				res.status(200);
 				res.send(
 					JSON.stringify({
 						xml: response.data,
@@ -49,6 +50,7 @@ app.post("/getCapabilities", async (req, res) => {
 			"Access-Control-Allow-Headers",
 			"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
 		);
+		res.status(200);
 		res.send(
 			JSON.stringify({
 				type: "error",
