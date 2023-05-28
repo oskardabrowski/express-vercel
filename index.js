@@ -5,7 +5,7 @@ app.use(express.static("public"));
 
 //index.js
 app.get("/", (req, res) => {
-	res.sendFile("index.html", { root: path.join(__dirname, "public") });
+	res.send("Caps parser is working!");
 });
 
 app.listen(process.env.PORT || 3000);
