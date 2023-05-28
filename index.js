@@ -29,8 +29,8 @@ app.post("/getCapabilities", async (req, res) => {
 					"Access-Control-Allow-Headers",
 					"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
 				);
-				res.sendStatus(200);
-				res.send(
+				// res.sendStatus(200);
+				res.status(200).send(
 					JSON.stringify({
 						xml: response.data,
 					})
@@ -50,8 +50,8 @@ app.post("/getCapabilities", async (req, res) => {
 			"Access-Control-Allow-Headers",
 			"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
 		);
-		res.sendStatus(200);
-		res.send(
+		// res.sendStatus(200);
+		res.status(200).send(
 			JSON.stringify({
 				type: "error",
 				message: "You should send url",
