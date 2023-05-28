@@ -4,17 +4,11 @@ const path = require("path");
 const axios = require("axios");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.static("public"));
-app.options("*", cors());
-app.options("/", cors());
-app.options("/getCapabilities", cors());
-
-app.get("/", (req, res) => {
-	res.sendFile("index.html", { root: path.join(__dirname, "public") });
-});
 
 app.post("/getCapabilities", async (req, res) => {
 	const data = req.body;
@@ -22,19 +16,7 @@ app.post("/getCapabilities", async (req, res) => {
 		axios
 			.get(`${data.url}?SERVICE=WMS&REQUEST=GetCapabilities`)
 			.then((response) => {
-				res.setHeader("Access-Control-Allow-Credentials", true);
-				res.setHeader("Access-Control-Allow-Origin", "*");
-				res.setHeader(
-					"Access-Control-Allow-Methods",
-					"GET,OPTIONS,PATCH,DELETE,POST,PUT"
-				);
-				res.setHeader(
-					"Access-Control-Allow-Headers",
-					"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-				);
-				// res.sendStatus(200);
-				res.status(200).end();
-				res.send(
+				res.status(200).send(
 					JSON.stringify({
 						xml: response.data,
 					})
@@ -44,25 +26,17 @@ app.post("/getCapabilities", async (req, res) => {
 				console.log(error);
 			});
 	} else {
-		res.setHeader("Access-Control-Allow-Credentials", true);
-		res.setHeader("Access-Control-Allow-Origin", "*");
-		res.setHeader(
-			"Access-Control-Allow-Methods",
-			"GET,OPTIONS,PATCH,DELETE,POST,PUT"
-		);
-		res.setHeader(
-			"Access-Control-Allow-Headers",
-			"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-		);
-		// res.sendStatus(200);
-		res.status(200).end();
-		res.send(
+		res.status(200).send(
 			JSON.stringify({
 				type: "error",
-				message: "You should send url",
+				message: "You should send a URL",
 			})
 		);
 	}
+});
+
+app.get("/", (req, res) => {
+	res.sendFile("index.html", { root: path.join(__dirname, "public") });
 });
 
 app.listen(process.env.PORT || 3000);
