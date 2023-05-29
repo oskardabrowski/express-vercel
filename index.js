@@ -14,7 +14,7 @@ app.post("/getCapabilities", async (req, res) => {
 	const data = req.body;
 	if (data.url != null) {
 		axios
-			.get(`${data.url}?SERVICE=WMS&REQUEST=GetCapabilities`)
+			.get(`${data.url}`)
 			.then((response) => {
 				res.status(200).send(
 					JSON.stringify({
